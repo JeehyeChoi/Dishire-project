@@ -15,26 +15,65 @@
       --border-color: #e5e7eb;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: radial-gradient(circle at top left, #eef2ff 0, #f9fafb 40%, #ffffff 100%);
       color: var(--text-main);
       line-height: 1.6;
     }
 
+    /* ===== Language Switch (NEW) ===== */
+    .top-bar {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 14px 18px;
+      display: flex;
+      justify-content: flex-end;
+      pointer-events: none; /* 바 아래 요소 클릭 방지 */
+    }
+
+    .lang-switch {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #6b7280;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(148,163,184,0.35);
+      backdrop-filter: blur(10px);
+      padding: 6px 10px;
+      border-radius: 999px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    .lang-switch a {
+      text-decoration: none;
+      color: #6b7280;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .lang-switch a.active {
+      color: var(--accent-color);
+      font-weight: 600;
+      background: rgba(124, 58, 237, 0.10);
+      border-color: rgba(124, 58, 237, 0.22);
+    }
+
+    /* ===== Page Layout ===== */
     .page {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 3rem 1.5rem;
+      position: relative; /* top-bar absolute 기준 */
     }
 
     .hero {
@@ -48,16 +87,11 @@
     }
 
     @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      .hero { grid-template-columns: minmax(0, 1fr); }
+      .top-bar { position: fixed; } /* 모바일에서 스크롤 시에도 보이게 */
     }
 
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      gap: 1.75rem;
-    }
+    .hero-left { display: flex; flex-direction: column; gap: 1.75rem; }
 
     .badge {
       display: inline-flex;
@@ -70,12 +104,11 @@
       font-size: 0.85rem;
       font-weight: 500;
       border: 1px solid rgba(124, 58, 237, 0.18);
+      width: fit-content;
     }
 
     .badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
+      width: 7px; height: 7px; border-radius: 999px;
       background: var(--accent-color);
       box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.25);
     }
@@ -86,33 +119,29 @@
       line-height: 1.15;
     }
 
-    h1 span.highlight {
-      color: var(--accent-color);
-    }
+    h1 span.highlight { color: var(--accent-color); }
 
     .subtitle {
       font-size: 1.05rem;
       color: var(--text-sub);
-      max-width: 480px;
+      max-width: 520px;
     }
 
-		.subtitle-note {
-			font-size: 0.9rem;
-			color: #6b7280;
-			margin-top: 0.25rem;
-		}
+    .subtitle-note {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-top: 0.25rem;
+      max-width: 560px;
+    }
 
     .subtitle-english {
       font-size: 0.95rem;
       color: #6b7280;
       font-style: italic;
+      margin-top: 0.35rem;
     }
 
-    .usp-list {
-      display: grid;
-      gap: 0.75rem;
-      margin-top: 0.5rem;
-    }
+    .usp-list { display: grid; gap: 0.75rem; margin-top: 0.5rem; }
 
     .usp-item {
       display: flex;
@@ -124,8 +153,7 @@
 
     .usp-icon {
       margin-top: 0.15rem;
-      width: 18px;
-      height: 18px;
+      width: 18px; height: 18px;
       border-radius: 999px;
       border: 1px solid var(--accent-color);
       display: flex;
@@ -154,23 +182,18 @@
       backdrop-filter: blur(6px);
     }
 
-    .hero-right {
-      display: flex;
-      justify-content: center;
-    }
+    .hero-right { display: flex; justify-content: center; }
 
     .screenshot-card {
       width: 100%;
-      max-width: 460px;
+      max-width: 350px;
       border-radius: 1.75rem;
       padding: 0.75rem;
       background: linear-gradient(135deg, #ede9fe, #f9fafb);
-      box-shadow:
-        0 18px 45px rgba(15, 23, 42, 0.14),
-        0 0 0 1px rgba(148, 163, 184, 0.15);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.14),
+                  0 0 0 1px rgba(148, 163, 184, 0.15);
       position: relative;
       overflow: hidden;
-			max-width: 350px;   /* 원하는 값으로 조정 */
     }
 
     .screenshot-inner {
@@ -184,9 +207,7 @@
       display: block;
       width: 100%;
       height: auto;
-			width: 100%;       /* 그대로 두거나 */
-			max-width: 350px;   /* 원하는 값으로 조정 */
-  		object-fit: cover; /* 비율 유지하며 꽉 채움 */
+      object-fit: cover;
     }
 
     .screenshot-caption {
@@ -209,41 +230,47 @@
       backdrop-filter: blur(8px);
     }
 
-		.next-page {
-			margin-top: 3rem;
-			text-align: center;
-		}
+    .next-page { margin-top: 3rem; text-align: center; }
 
-		.next-page a {
-			display: inline-block;
-			padding: 0.9rem 1.7rem;
-			border-radius: 999px;
-			background: #7c3aed;              /* 히어로에서 쓰던 보라색 */
-			color: #ffffff;
-			font-weight: 600;
-			font-size: 0.95rem;
-			text-decoration: none;
-			box-shadow: 0 10px 25px rgba(124, 58, 237, 0.35);
-			transition: background 0.18s ease, transform 0.18s ease,
-									box-shadow 0.18s ease;
-		}
+    .next-page a {
+      display: inline-block;
+      padding: 0.9rem 1.7rem;
+      border-radius: 999px;
+      background: #7c3aed;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(124, 58, 237, 0.35);
+      transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    }
 
-		.next-page a:hover {
-			background: #5b21b6;
-			transform: translateY(-1px);
-			box-shadow: 0 14px 30px rgba(124, 58, 237, 0.45);
-		}
+    .next-page a:hover {
+      background: #5b21b6;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(124, 58, 237, 0.45);
+    }
 
-		.next-page a:active {
-			transform: translateY(0);
-			box-shadow: 0 8px 18px rgba(124, 58, 237, 0.3);
-		}
+    .next-page a:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 18px rgba(124, 58, 237, 0.3);
+    }
   </style>
 </head>
+
 <body>
   <main class="page">
+
+    <!-- Language switch (NEW) -->
+    <div class="top-bar">
+      <div class="lang-switch">
+        <span>Language:</span>
+        <a href="dishire_hero.html" class="active">한국어</a>
+        <a href="dishire_hero_en.html">ENG</a>
+      </div>
+    </div>
+
     <section class="hero">
-      <!-- LEFT: Title, subtitle, USP -->
       <div class="hero-left">
         <div class="badge">
           <span class="badge-dot"></span>
@@ -255,49 +282,49 @@
             <span class="highlight">Dishire</span> — 복합 상황·감정 기반<br />
             AI 레시피 생성 플랫폼
           </h1>
-          <p className="subtitle-english subtitle-english">
-            Your Emotion. Your Story. Your Dish.
-          </p>
+
+          <!-- FIX: className -> class -->
+          <p class="subtitle-english">Your Emotion. Your Story. Your Dish.</p>
         </div>
 
-				<p class="subtitle">
-					Dishire는 사용자의 감정, 건강 상태, 취향, 그리고 지금 처한 상황을 기반으로
-  				“지금 무엇을 먹을지”를 함께 결정하는 AI 기반 Food Decision Maker입니다.
-				</p>
+        <p class="subtitle">
+          Dishire는 사용자의 감정, 건강 상태, 취향, 그리고 지금 처한 상황을 기반으로
+          “지금 무엇을 먹을지”를 함께 결정하는 AI 기반 Food Decision Maker입니다.
+        </p>
 
-				<p class="subtitle-note">
-					프로토타입에서는 GPT 기반 프롬프트 설계와 다단계 레시피 생성 구조를 구현하여,
-					다양한 식사 상황에 어울리는 레시피를 자동으로 추천하는 흐름까지 완성했습니다.
-				</p>
+        <p class="subtitle-note">
+          프로토타입에서는 GPT 기반 프롬프트 설계와 다단계 레시피 생성 구조를 구현하여,
+          다양한 식사 상황에 어울리는 레시피를 자동으로 추천하는 흐름까지 완성했습니다.
+        </p>
 
-				<div class="usp-list">
-					<div class="usp-item">
-						<div class="usp-icon">①</div>
-						<div>
-							<strong>다단계 LLM 생성 구조 (Multi-step Generation)</strong><br />
-							메뉴 추천, 재료, 조리 단계 등을 분리해 생성하는 구조를 실제로 구현해
-							더 제어 가능한 레시피 생성이 가능합니다.
-						</div>
-					</div>
+        <div class="usp-list">
+          <div class="usp-item">
+            <div class="usp-icon">①</div>
+            <div>
+              <strong>다단계 LLM 생성 구조 (Multi-step Generation)</strong><br />
+              메뉴 추천, 재료, 조리 단계 등을 분리해 생성하는 구조를 실제로 구현해
+              더 제어 가능한 레시피 생성이 가능합니다.
+            </div>
+          </div>
 
-					<div class="usp-item">
-						<div class="usp-icon">②</div>
-						<div>
-							<strong>상황 기반 맞춤 추천 (Prototype)</strong><br />
-							정석 추천, 재료 기반 추천 등 사용자가 선택한 프롬프트 유형에 따라
-							다양한 식사 상황에 맞춘 레시피를 자동 생성합니다.
-						</div>
-					</div>
+          <div class="usp-item">
+            <div class="usp-icon">②</div>
+            <div>
+              <strong>상황 기반 맞춤 추천 (Prototype)</strong><br />
+              정석 추천, 재료 기반 추천 등 사용자가 선택한 프롬프트 유형에 따라
+              다양한 식사 상황에 맞춘 레시피를 자동 생성합니다.
+            </div>
+          </div>
 
-					<div class="usp-item">
-						<div class="usp-icon">③</div>
-						<div>
-							<strong>감정·상태 기반 추천 (Vision)</strong><br />
-							감정·취향·건강 정보를 함께 반영하는 개인화 추천 시스템을 목표로
-							설계했으며, 향후 확장 방향으로 제시된 기능입니다.
-						</div>
-					</div>
-				</div>
+          <div class="usp-item">
+            <div class="usp-icon">③</div>
+            <div>
+              <strong>감정·상태 기반 추천 (Vision)</strong><br />
+              감정·취향·건강 정보를 함께 반영하는 개인화 추천 시스템을 목표로
+              설계했으며, 향후 확장 방향으로 제시된 기능입니다.
+            </div>
+          </div>
+        </div>
 
         <div class="hero-meta">
           <span class="meta-pill">GPT 기반 프로토타입</span>
@@ -306,12 +333,10 @@
         </div>
       </div>
 
-      <!-- RIGHT: Screenshot -->
       <div class="hero-right">
         <div class="screenshot-card">
           <div class="corner-tag">Prototype UI</div>
           <div class="screenshot-inner">
-            <!-- TODO: 여기 src를 네 실제 스크린샷 경로로 교체 -->
             <img
               src="chatview_basic.jpg"
               alt="다양한 식사 상황에 어울리는 요리를 추천하는 Dishire의 메인 화면."
@@ -324,12 +349,10 @@
       </div>
     </section>
 
-	<div class="next-page">
-		<a href="dishire_why.html">다음 페이지: 서비스 목적 보기 →</a>
-	</div>
-
+    <div class="next-page">
+      <a href="dishire_why.html">다음 페이지: 서비스 목적 보기 →</a>
+    </div>
 
   </main>
-
 </body>
 </html>

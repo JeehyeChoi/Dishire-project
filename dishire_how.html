@@ -132,11 +132,62 @@
     .page-nav a:hover {
       text-decoration: underline;
     }
+
+		.top-bar {
+			width: 100%;
+			position: fixed;
+			top: 0;
+			right: 0;
+			padding: 14px 18px;
+			display: flex;
+			justify-content: flex-end;
+			z-index: 100;
+		}
+
+		.lang-switch {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			font-size: 0.85rem;
+			color: #6b7280;
+			background: rgba(255,255,255,0.85);
+			border: 1px solid rgba(148,163,184,0.35);
+			backdrop-filter: blur(10px);
+			padding: 6px 10px;
+			border-radius: 999px;
+			box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+		}
+
+		.lang-switch a {
+			text-decoration: none;
+			color: #6b7280;
+			padding: 2px 8px;
+			border-radius: 999px;
+			border: 1px solid transparent;
+		}
+
+		.lang-switch a.active {
+			color: #7c3aed;
+			font-weight: 600;
+			background: rgba(124, 58, 237, 0.10);
+			border-color: rgba(124, 58, 237, 0.22);
+		}
+
+
   </style>
 </head>
 
 <body>
   <main class="page">
+		<!-- Language switch -->
+		<div class="top-bar">
+			<div class="lang-switch">
+				<span>Language:</span>
+				<a href="dishire_how.html" class="active">한국어</a>
+				<a href="dishire_how_en.html">ENG</a>
+			</div>
+		</div>
+
     <div class="container">
 
       <!-- 상단 경로 -->

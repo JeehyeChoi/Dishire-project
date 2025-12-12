@@ -23,10 +23,44 @@
         color: var(--fg);
       }
 
+      .top-bar {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 10px 20px 0;
+        display: flex;
+        justify-content: flex-end;
+        font-size: 13px;
+      }
+
+      .lang-switch {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .lang-switch span {
+        color: var(--muted);
+      }
+
+      .lang-switch a {
+        text-decoration: none;
+        padding: 2px 8px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        color: var(--muted);
+      }
+
+      .lang-switch a.active {
+        border-color: rgba(37, 99, 235, 0.4);
+        color: var(--accent);
+        font-weight: 600;
+        background: #e0ebff;
+      }
+
       .container {
         max-width: 860px;
         margin: 0 auto;
-        padding: 40px 20px 80px;
+        padding: 20px 20px 80px;
         text-align: center;
       }
 
@@ -93,6 +127,15 @@
   </head>
 
   <body>
+    <!-- 언어 스위치 -->
+    <div class="top-bar">
+      <div class="lang-switch">
+        <span>Language:</span>
+        <a href="index.html" class="active">한국어</a>
+        <a href="index_en.html">ENG</a>
+      </div>
+    </div>
+
     <div class="container">
       <h1>Dishire 프로젝트 포트폴리오</h1>
 
