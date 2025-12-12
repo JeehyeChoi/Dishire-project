@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dishire – 한계와 미래 확장 방향</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        --bg: #f5f5f7;
+        --fg: #111827;
+        --accent: #2563eb;
+        --card-bg: #ffffff;
+        --muted: #6b7280;
+        --border-subtle: #e5e7eb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+        line-height: 1.6;
+      }
+
+      main.container {
+        max-width: 960px;
+        margin: 40px auto 80px;
+        padding: 0 16px;
+      }
+
+      .page-header {
+        margin-bottom: 32px;
+      }
+
+      .page-label {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #e0ebff;
+        color: #1d4ed8;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .page-header h1 {
+        margin: 0 0 8px;
+        font-size: 26px;
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .block {
+        background: var(--card-bg);
+        border-radius: 18px;
+        padding: 24px 24px 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+      }
+
+      .block h2 {
+        margin-top: 0;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .block h3 {
+        margin-top: 20px;
+        margin-bottom: 8px;
+        font-size: 16px;
+      }
+
+      .block p {
+        margin-top: 6px;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .block ul {
+        margin: 6px 0 10px 18px;
+        padding-left: 0;
+        font-size: 14px;
+      }
+
+      .block li + li {
+        margin-top: 4px;
+      }
+
+      strong {
+        font-weight: 600;
+      }
+
+      .next-page {
+        margin-top: 32px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+      }
+
+      .next-page a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .next-page a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 640px) {
+        main.container {
+          margin-top: 24px;
+        }
+
+        .block {
+          padding: 18px 16px 16px;
+          border-radius: 14px;
+        }
+
+        .page-header h1 {
+          font-size: 22px;
+        }
+
+        .next-page {
+          flex-direction: column;
+          gap: 6px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <header class="page-header">
+        <div class="page-label">Dishire 프로젝트</div>
+        <h1>Dishire의 한계와 미래 확장 방향</h1>
+        <p class="subtitle">
+          프로토타입으로서의 한계와, 다음 단계에서 확장하고자 했던 기술적 방향을 정리한 페이지입니다.
+        </p>
+      </header>
+
+      <section class="block">
+        <h2>1. 프로토타입 단계에서의 기술적 한계</h2>
+        <p>
+          Dishire는 멀티 스텝 LLM 파이프라인과 기본적인 추천 흐름을 검증하는 데 초점을 맞춘
+          <strong>프로토타입</strong>이었습니다. 실제 서비스 수준의 자동화·개인화 기능에는 이르지 못했고,
+          다음과 같은 제약을 가진 상태로 마무리되었습니다.
+        </p>
+
+        <ul>
+          <li>
+            <strong>세션 기반 단발성 추천</strong> —
+            각 요청은 독립적인 세션으로 처리되었고,
+            사용자 히스토리나 장기적인 선호 패턴을 저장하는 구조는 도입하지 못했습니다.
+          </li>
+          <li>
+            <strong>정적 템플릿 기반 프롬프트</strong> —
+            상황에 따라 프롬프트를 자동 생성·튜닝하기보다는,
+            미리 정의된 템플릿에 데이터를 채우는 방식에 머물렀습니다.
+          </li>
+          <li>
+            <strong>추천 방식 자동 분류 미구현</strong> —
+            “정석/재료 기반/상황 기반” 중 어떤 흐름을 사용할지 사용자가 직접 선택해야 했고,
+            입력 문장을 분석해 시스템이 적절한 추천 타입을 자동으로 고르지는 못했습니다.
+          </li>
+          <li>
+            <strong>품질 보정(Validate) 로직 미완성</strong> —
+            multi-step 구조 안에 Validate 단계가 존재하지만,
+            실제로 출력 품질을 자동으로 점검·수정하는 로직은 skeleton 수준에 머물렀습니다.
+          </li>
+          <li>
+            <strong>병렬 생성(Parallel) 결과 평가 부재</strong> —
+            보조적으로 생성된 결과를 자동으로 평가하거나 선택하는 알고리즘은 구현하지 못했습니다.
+          </li>
+        </ul>
+
+        <p>
+          이런 한계들은 구현 범위의 제약이기도 했지만, 동시에
+          “다음 단계에서 무엇을 우선적으로 확장해야 하는가?”를 결정하는 기준이 되었습니다.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2>2. 자동 분류 기반 추천으로의 확장</h2>
+        <p>
+          프로토타입에서는 추천 방식을 사용자가 직접 선택했지만,
+          실제 서비스에서는 입력 문장만으로도 <strong>어떤 추천 흐름을 태워야 하는지</strong>
+          시스템이 자동으로 판단하는 것이 자연스럽습니다.
+        </p>
+
+        <ul>
+          <li>“속이 안 좋아…” → 소화·컨디션을 고려한 <strong>상황 기반 추천</strong></li>
+          <li>“닭가슴살이랑 양파 있어” → <strong>재료 기반 추천</strong></li>
+          <li>“뭔가 위로되는 음식…” → 감정 상태를 고려한 <strong>정석/감정 기반 추천</strong></li>
+        </ul>
+
+        <p>
+          이를 위해서는 규칙 기반 분류에서 출발해,
+          간단한 텍스트 분류기나 임베딩 기반 라우터를 이용해
+          <strong>입력 → 추천 타입</strong>을 자동 매핑하는 모듈을 추가할 수 있습니다.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2>3. 사용자 히스토리 기반 개인화 엔진</h2>
+        <p>
+          장기적으로는 Dishire를 “한 번 쓰는 도구”가 아니라
+          <strong>사용자와 함께 학습하는 레시피 파트너</strong>로 발전시키는 방향을 염두에 두었습니다.
+          이를 위해서는 사용자 히스토리를 활용한 개인화 엔진이 필요합니다.
+        </p>
+
+        <ul>
+          <li>최근 선택한 메뉴·검색·피드백 로그를 기반으로 취향 벡터 구축</li>
+          <li>레시피 후보에 대해 사용자 취향과의 유사도 기반 reranking</li>
+          <li>시간대·기분·상황에 따른 반복 패턴을 분석하여 추천 가중치 조정</li>
+        </ul>
+
+        <p>
+          프로토타입에서는 세션 단위 추천까지만 구현되었고,
+          이러한 개인화 파이프라인은 설계 아이디어 수준에 머물렀습니다.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2>4. 프롬프트 자동 생성·튜닝 시스템</h2>
+        <p>
+          정적 템플릿은 안정적이지만, 다양한 상황을 모두 커버하기에는 한계가 있습니다.
+          궁극적으로는 <strong>프롬프트 자체가 데이터와 함께 진화하는 구조</strong>를 목표로 했습니다.
+        </p>
+
+        <ul>
+          <li>사용자 그룹(예: 다이어트 중, 초보 요리자 등)에 따른 프롬프트 버전 분리</li>
+          <li>로그를 기반으로 한 프롬프트 리라이팅 및 A/B 테스트</li>
+          <li>상황·감정 조합에 따른 프롬프트 파라미터화(예: comfort, light, fast 등)</li>
+        </ul>
+
+        <p>
+          Dishire 프로토타입에서는 정적 템플릿 + 부분 동적 삽입까지만 구현되었으며,
+          프롬프트를 자동으로 생성·튜닝하는 계층은 다음 단계 과제로 남아 있습니다.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2>5. multi-step 파이프라인 품질 평가 레이어</h2>
+        <p>
+          multi-step 구조의 강점을 충분히 활용하려면,
+          각 단계에서 생성된 결과를 자동으로 점검하는
+          <strong>품질 평가 레이어</strong>가 필요합니다.
+        </p>
+
+        <ul>
+          <li>재료 목록과 조리 단계의 일관성 검사</li>
+          <li>사용자 제약(알레르기, 식단, 종교적 규칙) 위반 여부 체크</li>
+          <li>출력 형식이 기대한 스키마를 따르는지 검증</li>
+        </ul>
+
+        <p>
+          프로토타입에서는 Validate 단계가 구조적으로만 존재했고,
+          실제 품질 보정 로직은 구현하지 못했습니다.
+          향후에는 LLM 자체를 보정기로 활용하거나, 규칙 기반 검증과 결합하는 방식으로
+          품질 평가 레이어를 확장할 수 있습니다.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2>6. 마무리</h2>
+        <p>
+          Dishire는 프로토타입 수준의 프로젝트였지만,
+          이 과정을 통해 <strong>LLM을 단순 API 호출이 아니라,
+          서비스 레벨의 구성 요소로 다루는 경험</strong>을 쌓을 수 있었습니다.
+        </p>
+
+        <p>
+          특히 프롬프트 템플릿 설계, multi-step 파이프라인, 상황·제약 기반 추천 흐름을 직접 구현해 보면서,
+          <strong>“모델·프롬프트·데이터·UX가 연결된 시스템”</strong> 관점에서 LLM을 바라보게 되었습니다.
+        </p>
+
+        <p>
+          Dishire는 완성된 서비스는 아니지만,
+          LLM 기반 추천 시스템이 어떤 구조적 문제를 갖고 있고,
+          이를 어떤 방향으로 확장·개선할 수 있는지에 대한 
+          실질적인 인사이트를 남긴 프로젝트였습니다.
+        </p>
+      </section>
+
+      <div class="next-page">
+        <a href="dishire_how.html">← 이전 페이지: 구현 방식(How) 보기</a>
+        <a href="index.html">처음으로: 프로젝트 개요로 돌아가기 →</a>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dishire — 서비스를 만들게 된 이유 (Why)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-color: #f9fafb;
+      --accent-color: #7c3aed;
+      --accent-light: #ede9fe;
+      --text-main: #111827;
+      --text-sub: #4b5563;
+      --card-bg: #ffffff;
+      --border-color: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top left, #eef2ff 0, #f9fafb 40%, #ffffff 100%);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    main.page {
+      min-height: 100vh;
+      padding: 3rem 1.5rem 4rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 880px;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 1.2rem;
+    }
+
+    .breadcrumb a {
+      color: #6b7280;
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 3vw, 2.2rem);
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    h1 span {
+      color: var(--accent-color);
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: var(--text-sub);
+      margin-bottom: 2rem;
+      max-width: 640px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2.4rem;
+      font-size: 0.8rem;
+    }
+
+    .tag {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.9);
+      color: #4b5563;
+    }
+
+    section.block {
+      margin-bottom: 2.4rem;
+      padding: 1.6rem 1.8rem;
+      border-radius: 1.5rem;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(209, 213, 219, 0.8);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06);
+    }
+
+    section.block h2 {
+      font-size: 1.15rem;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.02em;
+    }
+
+    section.block h3 {
+      font-size: 0.98rem;
+      margin: 0.9rem 0 0.3rem;
+    }
+
+    section.block p {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      margin: 0.2rem 0 0.7rem 1.1rem;
+      padding-left: 0.4rem;
+    }
+
+    li {
+      font-size: 0.94rem;
+      color: var(--text-sub);
+      margin-bottom: 0.3rem;
+    }
+
+    .highlight-box {
+      margin-top: 0.6rem;
+      padding: 0.7rem 0.9rem;
+      border-radius: 0.85rem;
+      background: #f5f3ff;
+      border: 1px dashed #c4b5fd;
+      font-size: 0.9rem;
+      color: #4c1d95;
+    }
+
+    .page-nav {
+      margin-top: 2.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .page-nav a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .page-nav a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      section.block {
+        padding: 1.4rem 1.3rem;
+      }
+      .page-nav {
+        flex-direction: column;
+        gap: 0.7rem;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="container">
+      <!-- TODO: href는 실제 히어로 페이지 파일 이름으로 수정 -->
+      <div class="breadcrumb">
+        <a href="dishire_hero.html">Dishire</a> · 서비스 목적 (Why)
+      </div>
+
+      <h1>
+				<span>Dishire</span>를 만들게 된 이유
+      </h1>
+      <p class="subtitle">
+				Dishire를 기획하게 된 배경과, 서비스를 어떻게 접근했는지 설명하는 섹션입니다.
+      </p>
+
+      <div class="tag-row">
+        <span class="tag">문제 정의 · Problem Framing</span>
+        <span class="tag">AI 사용 맥락 설계</span>
+        <span class="tag">Food Decision Making</span>
+      </div>
+
+      <!-- 1. 어떤 문제에서 출발했는가 -->
+			<section class="block">
+				<h2>1-1. 레시피 소비 플랫폼의 진화는 자연스럽게 AI 단계로 이어진다고 보았습니다.</h2>
+				<p>
+					레시피는 책, TV, 블로그, 유튜브, 숏폼 등 플랫폼의 변화에 따라 전달 방식이 계속 진화해왔습니다.
+					저는 생성형 AI의 등장 역시 이러한 흐름의 연장선에 있다고 보았고,
+					앞으로 레시피 또한 AI 기반의 플랫폼으로 자연스럽게 이동할 것이라 판단했습니다.
+				</p>
+				<p>
+					처음 Dishire를 기획할 때의 출발점은 매우 직관적이었습니다.
+					사용자가 상황이나 제약 조건, 혹은 가지고 있는 재료만 입력하면
+					<strong>“그에 맞는 한 끼가 자동으로 만들어지는 서비스”</strong>를 상상했습니다.
+				</p>
+				<p>
+					이 아이디어는 기존 레시피 서비스의 검색 기반 구조와 달리,
+					<strong>문제를 먼저 정의하고 그에 맞는 요리를 생성해 주는 방식</strong>이라는 점에서 차별적이라고 느꼈습니다.
+				</p>
+			</section>
+
+			<section class="block">
+				<h2>1-2. 많은 사람들은 레시피보다 ‘결정 과정’에서 어려움을 겪습니다.</h2>
+				<p>
+					프로젝트를 진행하며 알게 된 점은,
+					사람들이 실제로 어려워하는 것은 “요리법” 자체가 아니라
+					<em>“오늘 뭐 먹지?”</em>라는 결정 과정이었습니다.
+					기존 레시피 서비스가 검색을 전제로 하는 구조이기 때문에,
+					이 결정 단계를 도와주지 못하고 있다는 점을 문제로 보았습니다.
+				</p>
+				<p>
+					그래서 Dishire는 단순 레시피 검색기가 아니라,
+					<strong>사용자의 맥락을 기반으로 선택을 도와주는 Food Decision Maker</strong>로 확장되었습니다.
+				</p>
+			</section>
+
+			<section class="block">
+				<h2>1-3. 제약 조건이 있는 사람들은 더 복잡한 결정을 해야 합니다.</h2>
+				<p>
+					알레르기, 비건, 저탄수, 혹은 다이어트를 하고 있는 사용자들은
+					일반 레시피를 그대로 따라 하기 어렵습니다.
+					대체 재료를 스스로 찾거나 조리법을 수정해야 하고,
+					그 과정은 번거롭고 맛의 만족도가 떨어질 수 있습니다.
+				</p>
+				<p>
+					Dishire는 이들이 <strong>제약을 지키면서도 맛있게 먹을 수 있는 선택지</strong>를 제공하는 것을
+					중요한 목표 중 하나로 삼았습니다.
+				</p>
+			</section>
+
+      <!-- 2. 왜 AI/LLM을 쓰기로 했는가 -->
+      <section class="block">
+				<h2>2. 생성형 AI는 ‘상황과 맥락’을 기반으로 레시피를 생성하는 데 적합합니다.</h2>
+				<p>
+					GPT 같은 LLM은 기존 레시피를 그대로 보여주는 도구라기보다,
+					상황 설명, 제약 조건, 취향 등을 텍스트로 전달하면
+					그 맥락에 맞춰 새로운 요리를 조합해 주는 유연성이 있습니다.
+				</p>
+				<h3>주목한 포인트</h3>
+				<ul>
+					<li>“냉장고에 있는 재료”, “지금 기분”, “요리에 쓸 수 있는 시간” 같은 맥락 정보를 다룰 수 있다.</li>
+					<li>조리 난이도, 식단 목표(예: 다이어트, 단백질 위주) 같은 조건을 동시에 고려할 수 있다.</li>
+					<li>정해진 레시피가 아니라 상황에 맞춰 조합된 “한 끼 제안”을 만들어낼 수 있다.</li>
+				</ul>
+				<p>
+					Dishire에서는 사용자가 입력한 상황·상태 정보뿐 아니라
+					식단 제한, 알레르기, 종교적 식습관 등의 프로필 정보를
+					정적 프롬프트 구조에 반영하여 LLM에 전달했습니다.
+					LLM이 생성한 레시피는 이러한 제약 조건을 고려해 제안되며,
+					결과는 UI에서 직관적으로 확인할 수 있도록 구성했습니다.
+				</p>
+      </section>
+
+      <div class="page-nav">
+        <!-- TODO: 파일 이름은 실제 첫 페이지 파일명으로 수정 -->
+        <a href="dishire_hero.html">← 이전 페이지: 개요 &amp; Hero</a>
+        <a href="dishire_what.html">다음 페이지: 핵심 기능 보기 →</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
