@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dishire – Limitations & Future Directions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        --bg: #f5f5f7;
+        --fg: #111827;
+        --accent: #2563eb;
+        --card-bg: #ffffff;
+        --muted: #6b7280;
+        --border-subtle: #e5e7eb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+        line-height: 1.6;
+      }
+
+      main.container {
+        max-width: 960px;
+        margin: 40px auto 80px;
+        padding: 0 16px;
+      }
+
+      .page-header {
+        margin-bottom: 32px;
+      }
+
+      .page-label {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #e0ebff;
+        color: #1d4ed8;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .page-header h1 {
+        margin: 0 0 8px;
+        font-size: 26px;
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .block {
+        background: var(--card-bg);
+        border-radius: 18px;
+        padding: 24px 24px 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+      }
+
+      .block h2 {
+        margin-top: 0;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .block h3 {
+        margin-top: 20px;
+        margin-bottom: 8px;
+        font-size: 16px;
+      }
+
+      .block p {
+        margin-top: 6px;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .block ul {
+        margin: 6px 0 10px 18px;
+        padding-left: 0;
+        font-size: 14px;
+      }
+
+      .block li + li {
+        margin-top: 4px;
+      }
+
+      strong {
+        font-weight: 600;
+      }
+
+      .next-page {
+        margin-top: 32px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+      }
+
+      .next-page a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .next-page a:hover {
+        text-decoration: underline;
+      }
+
+      /* Language switch (optional – you said you will add it yourself on KOR pages.
+         Keep it here for the EN page so it's consistent.) */
+      .top-bar {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        padding: 14px 18px;
+        display: flex;
+        justify-content: flex-end;
+        z-index: 100;
+      }
+
+      .lang-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.85rem;
+        color: #6b7280;
+        background: rgba(255,255,255,0.85);
+        border: 1px solid rgba(148,163,184,0.35);
+        backdrop-filter: blur(10px);
+        padding: 6px 10px;
+        border-radius: 999px;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      }
+
+      .lang-switch a {
+        text-decoration: none;
+        color: #6b7280;
+        padding: 2px 8px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+      }
+
+      .lang-switch a.active {
+        color: #2563eb;
+        font-weight: 600;
+        background: rgba(37, 99, 235, 0.10);
+        border-color: rgba(37, 99, 235, 0.22);
+      }
+
+      @media (max-width: 640px) {
+        main.container {
+          margin-top: 24px;
+        }
+
+        .block {
+          padding: 18px 16px 16px;
+          border-radius: 14px;
+        }
+
+        .page-header h1 {
+          font-size: 22px;
+        }
+
+        .next-page {
+          flex-direction: column;
+          gap: 6px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Language switch -->
+    <div class="top-bar">
+      <div class="lang-switch">
+        <span>Language:</span>
+        <a href="dishire_future.html">한국어</a>
+        <a href="dishire_future_en.html" class="active">ENG</a>
+      </div>
+    </div>
+
+    <main class="container" style="margin-top: 76px;">
+      <header class="page-header">
+        <div class="page-label">Dishire Project</div>
+        <h1>Limitations & Future Directions</h1>
+        <p class="subtitle">
+          This page summarizes prototype-level limitations and technical directions considered for the next stage.
+        </p>
+      </header>
+
+      <section class="block">
+        <h2>1. Technical limitations in the prototype</h2>
+        <p>
+          Dishire was a <strong>prototype</strong> focused on validating a multi-step LLM pipeline and basic recommendation flows.
+          It did not reach a production-grade level of automation or personalization, and remained limited in the following ways:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Session-only recommendations</strong> —
+            Each request was handled as a single session, without long-term storage of user history or preference patterns.
+          </li>
+          <li>
+            <strong>Static prompt templates</strong> —
+            Instead of generating or tuning prompts dynamically, the system mostly relied on predefined templates
+            with simple data injection.
+          </li>
+          <li>
+            <strong>No automatic routing</strong> —
+            Users had to manually choose a recommendation mode (e.g., standard / ingredient-based / context-based).
+            The system did not classify input text and route to an appropriate flow automatically.
+          </li>
+          <li>
+            <strong>Incomplete validation logic</strong> —
+            A “Validate” step existed in the pipeline, but automated checking/correction was only a skeleton.
+          </li>
+          <li>
+            <strong>No evaluation for parallel candidates</strong> —
+            When multiple candidates were generated, the prototype did not implement a scoring or selection algorithm.
+          </li>
+        </ul>
+
+        <p>
+          These limitations were also useful: they clarified what should be prioritized in a next iteration.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2>2. Expanding toward automatic routing (classification-based recommendation)</h2>
+        <p>
+          In the prototype, the user chose the recommendation mode explicitly.
+          For a real service, it is more natural for the system to infer
+          <strong>which flow should be used</strong> from the input text and profile constraints.
+        </p>
+
+        <ul>
+          <li>“My stomach feels upset…” → <strong>context-based</strong> (condition-aware)</li>
+          <li>“I have chicken breast and onions” → <strong>ingredient-based</strong></li>
+          <li>“I want something comforting…” → <strong>standard / emotion-aware</strong></li>
+        </ul>
+
+        <p>
+          A practical next step is to start with rule-based routing and gradually evolve to
+          a lightweight text classifier or embedding-based router that maps
+          <strong>input → recommendation type</strong>.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2>3. Personalization engine using user history</h2>
+        <p>
+          A longer-term direction was to evolve Dishire from a “single-use tool” into a
+          <strong>recipe partner that learns with the user</strong>.
+          This requires a personalization engine built on user history.
+        </p>
+
+        <ul>
+          <li>Build a preference representation from recent selections, searches, and feedback logs</li>
+          <li>Re-rank recipe candidates based on similarity to user preference signals</li>
+          <li>Adjust recommendation weights using repeated patterns by mood/time/context</li>
+        </ul>
+
+        <p>
+          In the prototype, recommendations were limited to session-level interactions,
+          and this personalization pipeline stayed at the design-idea level.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2>4. Prompt generation and tuning system</h2>
+        <p>
+          Static templates provide stability, but they do not scale well to cover diverse contexts.
+          The eventual goal was a structure where
+          <strong>prompts evolve with data and experimentation</strong>.
+        </p>
+
+        <ul>
+          <li>Separate prompt versions by user groups (e.g., diet users, beginner cooks)</li>
+          <li>Prompt rewriting and A/B tests driven by logs</li>
+          <li>Parameterized prompts for context/emotion combinations (e.g., comfort, light, fast)</li>
+        </ul>
+
+        <p>
+          Dishire implemented static templates with partial dynamic insertion only.
+          Automatic prompt generation/tuning was left as a next-stage challenge.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2>5. Quality evaluation layer for the multi-step pipeline</h2>
+        <p>
+          To fully benefit from a multi-step pipeline, the system needs an automated
+          <strong>quality evaluation layer</strong> that checks outputs at each stage.
+        </p>
+
+        <ul>
+          <li>Consistency checks between ingredient lists and cooking steps</li>
+          <li>Constraint checks for allergies/diet/religious restrictions</li>
+          <li>Schema validation (whether outputs follow the expected format)</li>
+        </ul>
+
+        <p>
+          In the prototype, the Validate step existed mainly as a structural placeholder.
+          A future design could combine rule-based checks with LLM-based self-correction.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2>6. Closing reflection</h2>
+        <p>
+          Dishire remained a prototype, but the process provided hands-on experience in treating LLMs as a
+          <strong>service component</strong> rather than a one-off API call.
+        </p>
+
+        <p>
+          By implementing prompt templates, a multi-step generation pipeline, and constraint-aware routing experiments,
+          I learned to view LLM systems as an integrated structure where
+          <strong>model · prompts · data · and UX</strong> must work together.
+        </p>
+
+        <p>
+          While Dishire is not a finished product, it produced practical insight into common structural issues in
+          LLM-based recommendation systems and concrete ways to improve them.
+        </p>
+      </section>
+
+      <div class="next-page">
+        <a href="dishire_how_en.html">← Previous: How It Works</a>
+        <a href="index_en.html">Back to Overview →</a>
+      </div>
+    </main>
+  </body>
+</html>

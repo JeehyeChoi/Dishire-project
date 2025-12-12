@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dishire — Context & Emotion-Aware AI Recipe Prototype</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-color: #faf5ff;
+      --accent-color: #7c3aed;
+      --accent-light: #ede9fe;
+      --text-main: #111827;
+      --text-sub: #4b5563;
+      --card-bg: #ffffff;
+      --border-color: #e5e7eb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #eef2ff 0, #f9fafb 40%, #ffffff 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* ===== Language Switch ===== */
+    .top-bar {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 14px 18px;
+      display: flex;
+      justify-content: flex-end;
+      pointer-events: none;
+    }
+
+    .lang-switch {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #6b7280;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(148,163,184,0.35);
+      backdrop-filter: blur(10px);
+      padding: 6px 10px;
+      border-radius: 999px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    .lang-switch a {
+      text-decoration: none;
+      color: #6b7280;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .lang-switch a.active {
+      color: var(--accent-color);
+      font-weight: 600;
+      background: rgba(124, 58, 237, 0.10);
+      border-color: rgba(124, 58, 237, 0.22);
+    }
+
+    /* ===== Page Layout ===== */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      position: relative;
+    }
+
+    .hero {
+      max-width: 1080px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: minmax(0, 1fr); }
+      .top-bar { position: fixed; }
+    }
+
+    .hero-left { display: flex; flex-direction: column; gap: 1.75rem; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(124, 58, 237, 0.06);
+      color: var(--accent-color);
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid rgba(124, 58, 237, 0.18);
+      width: fit-content;
+    }
+
+    .badge-dot {
+      width: 7px; height: 7px; border-radius: 999px;
+      background: var(--accent-color);
+      box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.25);
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 3vw, 2.8rem);
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    h1 span.highlight { color: var(--accent-color); }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--text-sub);
+      max-width: 560px;
+    }
+
+    .subtitle-note {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-top: 0.25rem;
+      max-width: 620px;
+    }
+
+    .subtitle-english {
+      font-size: 0.95rem;
+      color: #6b7280;
+      font-style: italic;
+      margin-top: 0.35rem;
+    }
+
+    .usp-list { display: grid; gap: 0.75rem; margin-top: 0.5rem; }
+
+    .usp-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.98rem;
+      color: var(--text-sub);
+    }
+
+    .usp-icon {
+      margin-top: 0.15rem;
+      width: 18px; height: 18px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--accent-color);
+      background: #f5f3ff;
+      flex-shrink: 0;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .meta-pill {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-right { display: flex; justify-content: center; }
+
+    .screenshot-card {
+      width: 100%;
+      max-width: 350px;
+      border-radius: 1.75rem;
+      padding: 0.75rem;
+      background: linear-gradient(135deg, #ede9fe, #f9fafb);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.14),
+                  0 0 0 1px rgba(148, 163, 184, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screenshot-inner {
+      border-radius: 1.25rem;
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .screenshot-inner img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .screenshot-caption {
+      font-size: 0.8rem;
+      padding: 0.55rem 0.8rem 0.7rem;
+      color: #6b7280;
+      background: #f9fafb;
+      border-top: 1px solid rgba(209, 213, 219, 0.8);
+    }
+
+    .corner-tag {
+      position: absolute;
+      top: 0.9rem;
+      right: 0.9rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(17, 24, 39, 0.75);
+      color: #e5e7eb;
+      backdrop-filter: blur(8px);
+    }
+
+    .next-page { margin-top: 3rem; text-align: center; }
+
+    .next-page a {
+      display: inline-block;
+      padding: 0.9rem 1.7rem;
+      border-radius: 999px;
+      background: #7c3aed;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(124, 58, 237, 0.35);
+      transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .next-page a:hover {
+      background: #5b21b6;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(124, 58, 237, 0.45);
+    }
+
+    .next-page a:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 18px rgba(124, 58, 237, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <!-- Language switch -->
+    <div class="top-bar">
+      <div class="lang-switch">
+        <span>Language:</span>
+        <a href="dishire_hero.html">한국어</a>
+        <a href="dishire_hero_en.html" class="active">ENG</a>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-left">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Generative Recipe Prototype
+        </div>
+
+        <div>
+          <h1>
+            <span class="highlight">Dishire</span> — Context & Emotion-Aware<br />
+            AI Recipe Generation Prototype
+          </h1>
+
+          <p class="subtitle-english">Your Emotion. Your Story. Your Dish.</p>
+        </div>
+
+        <p class="subtitle">
+          Dishire is an AI-powered <strong>Food Decision Maker</strong> that helps decide
+          “what to eat right now” by considering a user’s context, preferences, basic profile,
+          and constraints.
+        </p>
+
+        <p class="subtitle-note">
+          In this prototype, I implemented GPT-based prompt templates and a multi-step recipe generation pipeline,
+          delivering an end-to-end flow that recommends recipes for different meal situations.
+        </p>
+
+        <div class="usp-list">
+          <div class="usp-item">
+            <div class="usp-icon">①</div>
+            <div>
+              <strong>Multi-step LLM Generation</strong><br />
+              Implemented a pipeline that generates menu direction, ingredients, and step-by-step instructions in separated stages
+              for more controllable outputs.
+            </div>
+          </div>
+
+          <div class="usp-item">
+            <div class="usp-icon">②</div>
+            <div>
+              <strong>Context-based Prompt Routing (Prototype)</strong><br />
+              Users select a prompt type (e.g., standard recommendation, ingredient-based),
+              and the system generates a recipe aligned with the selected situation.
+            </div>
+          </div>
+
+          <div class="usp-item">
+            <div class="usp-icon">③</div>
+            <div>
+              <strong>Emotion & Profile-aware Personalization (Vision)</strong><br />
+              Designed with a longer-term goal of incorporating emotion, health goals, and dietary constraints
+              into a personalization engine (future direction).
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-meta">
+          <span class="meta-pill">GPT-based Prototype</span>
+          <span class="meta-pill">FastAPI · PostgreSQL · React</span>
+          <span class="meta-pill">Generative Recipe App · Architecture & Design</span>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="screenshot-card">
+          <div class="corner-tag">Prototype UI</div>
+          <div class="screenshot-inner">
+            <img
+              src="chatview_basic.jpg"
+              alt="Dishire main screen recommending a recipe for a meal situation."
+            />
+            <div class="screenshot-caption">
+              Dishire prototype main screen — entry point for starting recipe generation.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="next-page">
+      <a href="dishire_why_en.html">Next: Why Dishire →</a>
+    </div>
+
+  </main>
+</body>
+</html>
