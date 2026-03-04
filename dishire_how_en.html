@@ -156,6 +156,29 @@
       font-weight: 600;
       background: rgba(124, 58, 237, 0.10);
     }
+
+
+  .diagram {
+    margin: 1rem 0 0.2rem;
+    padding: 0.9rem;
+    border-radius: 1rem;
+    background: #ffffff;
+    border: 1px solid rgba(209, 213, 219, 0.8);
+  }
+
+  .diagram img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0.8rem;
+  }
+
+  .diagram .caption {
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    color: #6b7280;
+  }
+		
   </style>
 </head>
 
@@ -204,6 +227,11 @@
 
       <section class="block">
         <h2>2. Overall Architecture</h2>
+
+				<div class="diagram">
+					<img src="dishire_arch.png" alt="Dishire system architecture diagram" />
+					<div class="caption">Figure. Dishire prototype architecture (React → FastAPI → OpenAI API → structured recipe output).</div>
+				</div>
         <ul>
           <li><strong>Frontend (React)</strong>: collects user input and displays generated recipes.</li>
           <li><strong>Backend (FastAPI)</strong>: builds prompts, manages session state, and orchestrates LLM calls.</li>
